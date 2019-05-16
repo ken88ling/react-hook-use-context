@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./App.css";
-
 const UserContext = React.createContext();
 class App extends React.Component {
   state = {
-    user: "Ken"
+    firstName: "Ken",
+    lastName: "Ling"
   };
   render() {
+    const { firstName, lastName } = this.state;
     return (
-      <UserContext.Provider value={this.state.user}>
+      <UserContext.Provider value={{ firstName, lastName }}>
         <Main />
       </UserContext.Provider>
     );
@@ -16,14 +17,13 @@ class App extends React.Component {
 }
 
 function Navbar() {
+  const { firstName, lastName } = useContext(UserContext);
   return (
-    <UserContext.Consumer>
-      {value => (
-        <nav>
-          <span>nav {value}</span>
-        </nav>
-      )}
-    </UserContext.Consumer>
+    <nav>
+      <span>
+        Name: {firstName} {lastName}
+      </span>
+    </nav>
   );
 }
 
